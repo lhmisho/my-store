@@ -1,0 +1,20 @@
+{
+  "name": "my-redux-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "store.js",
+  "scripts": {
+    "start": "parcel src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lhmisho/my-store.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lhmisho/my-store/issues"
+  },
+  "homepage": "https://github.com/lhmisho/my-store#readme"
+}

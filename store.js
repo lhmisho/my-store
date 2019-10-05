@@ -25,33 +25,33 @@ const createStore = (reducer, init) =>{
 
     return store
 }
+export default createStore
 
+// // basic use 
 
-// basic use 
+// const init = {
+//     component: 'hello'
+// }
 
-const init = {
-    component: 'hello'
-}
+// const reducer = (state, action) =>{
+//     switch(action.type){
+//         case 'ADD':{
+//             return state + action.payload
+//         }
+//         case 'SUB':{
+//             return state - action.payload
+//         }
+//         default: return state
+//     }
+// }
 
-const reducer = (state, action) =>{
-    switch(action.type){
-        case 'ADD':{
-            return state + action.payload
-        }
-        case 'SUB':{
-            return state - action.payload
-        }
-        default: return state
-    }
-}
+// const store = createStore(reducer, 0)
 
-const store = createStore(reducer, 0)
+// store.subscribe(() => {
+//     console.log(store.getState())
+// })
 
-store.subscribe(() => {
-    console.log(store.getState())
-})
-
-store.dispatch({type: 'ADD', payload: 100})
-store.dispatch({type: 'SUB', payload: 50})
-store.dispatch({type: 'ADD', payload: 20})
-store.dispatch({type: 'ADD', payload: 10})
+// store.dispatch({type: 'ADD', payload: 100})
+// store.dispatch({type: 'SUB', payload: 50})
+// store.dispatch({type: 'ADD', payload: 20})
+// store.dispatch({type: 'ADD', payload: 10})
