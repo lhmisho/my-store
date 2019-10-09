@@ -1,16 +1,12 @@
-const init = [
-    {
-        url: "https://www.facebook.com",
-        domainName: "facebook.com",
-        isFav: false,
-        _id: 'asdfasdf'
-    }
-]
+const init = {
+    b_list: []
+}
 
-const reducer = (state = init, action) =>{
+const reducer = (state = [], action) =>{
     switch(action.type){
         case 'CREATE_BOOKMARKS':{
-            return state.concat(action.payload)
+            // let bookmark = [...state]
+            return state.concat(action.payload) 
         }
         case 'REMOVE_BOOKMARKS':{
             return state.filter(bookmark => bookmark._id !== action.payload)
@@ -21,6 +17,10 @@ const reducer = (state = init, action) =>{
                     return bookmark.isFav = !bookmark.isFav
                 }
             })
+        }
+        case 'slider':{
+            // let slider_data = [...state]
+            return action.payload.slider_data
         }
         default: return state
     }

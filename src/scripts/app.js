@@ -1,9 +1,12 @@
 import createStore from '../../store'
 import reducer from './reducer'
 import createListItem from './creatListItem'
+import axios from 'axios'
+export const store = createStore(reducer)
 
-const store = createStore(reducer)
-
+store.subscribe(()=>{
+    console.log(store.getState().data)
+})
 
 window.onload = function () {
     const urlInput = document.getElementById('urlInput')
@@ -16,17 +19,54 @@ window.onload = function () {
             const domainName = getDomainName(url)
             const isFav = false
             const _id = UUID()
-
-            const li = createListItem({ url, domainName, isFav, _id })
-            console.log(li)
-            bookmarks.appendChild(li)
+            // console.log(domainName)
+            store.dispatch({
+                type: 'CREATE_BOOKMARKS',
+                payload: {
+                   _id, url, domainName, isFav
+                }
+            })
+            // const li = createListItem({ url, domainName, isFav, _id })
+            // console.log(li)
+            // bookmarks.appendChild(li)
             event.target.value = ''
         }
     }
+
+    store.subscribe(() => {
+        bookmarks.innerHTML = null
+        store.getState().forEach(item => {
+            let li = createListItem(item)
+            bookmarks.appendChild(li)
+        })
+    })
+
+    store.subscribe(() => {
+        favoriteBookmarks.innerHTML = null
+        store.getState().forEach(item => {
+            if(item.isFav){
+                let li = createListItem(item)
+                favoriteBookmarks.appendChild(li)
+            }
+        })
+    })
+
+    axios.get('http://localhost:8000/api/consumer/v1/categories/slider/')
+        .then(res => {
+            store.dispatch({
+                type: 'slider',
+                payload:{
+                    slider_data: res.data
+                }
+            })
+        })
+        .catch(err => console.log(err))
 }
 
 function getDomainName(url) {
-    return url.match(/:\/\/(.[^/]+)/)[1]
+    let new_url = url.match(/:\/\/(www[0-9]?\.)?(.[^/:]+)/i)
+    // console.log(new_url)
+    return new_url[2]
 }
 
 
